@@ -1,0 +1,25 @@
+---
+- name: install_package
+  package:
+    name: ufw
+    state: latest
+
+- name: allow_ssh
+  ufw:
+    port: ssh
+    proto: tcp
+    rule: allow
+    from_ip: "{{ item }}"
+  with_items:
+    - "0.0.0.0/0"
+    - "::/0"
+
+- name: default_reject
+  ufw:
+    policy: reject
+
+# now, after we've allowed SSH, we can enable the firewall
+- name: enable_ufw
+  ufw:
+    state: enabled
+

@@ -1,0 +1,6 @@
+---
+- name: reload_ufw
+  listen: reload_ufw
+  ufw:
+    state: reloaded
+
